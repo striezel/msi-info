@@ -1,0 +1,9 @@
+# Use .NET SDK from Microsoft Container Registry.
+image: mcr.microsoft.com/dotnet/sdk:5.0
+
+build:
+  stage: build
+  before_script:
+    - dotnet --info
+  script: 
+    - dotnet build msi-info/msi-info.sln
