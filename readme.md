@@ -6,7 +6,7 @@ package.
 
 ## Build status
 
-[![GitHub CI](https://github.com/striezel/msi-info/workflows/Build%20with%20.NET%20on%20Ubuntu%2020.04/badge.svg)](https://github.com/striezel/msi-info/actions)
+[![GitHub CI](https://github.com/striezel/msi-info/workflows/Build%20with%20.NET%20on%20Ubuntu/badge.svg)](https://github.com/striezel/msi-info/actions)
 [![GitHub CI](https://github.com/striezel/msi-info/workflows/MSBuild%20on%20Windows/badge.svg)](https://github.com/striezel/msi-info/actions)
 [![GitLab pipeline status](https://gitlab.com/striezel/msi-info/badges/master/pipeline.svg)](https://gitlab.com/striezel/msi-info/-/pipelines)
 

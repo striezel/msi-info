@@ -1,16 +1,20 @@
-name: Build with .NET on Ubuntu 20.04
+name: Build with .NET on Ubuntu
 
 on: push
 
 jobs:
-  build_mono_ubuntu_20_04:
-    runs-on: ubuntu-20.04
+  build_dotnet:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [6.0.x, 7.0.x]
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
       - uses: actions/checkout@v3
       - name: Setup .NET
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: ${{ matrix.version }}
       - name: Build
         run: dotnet build msi-info/msi-info.sln
