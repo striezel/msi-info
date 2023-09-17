@@ -14,7 +14,7 @@ package.
 
 Basic invocation via command line is as follows:
 
-    msi-info.exe C:\\User\\ExAmple\\Downloads\\Path\\To\\your.msi
+    msi-info.exe C:\User\ExAmple\Downloads\Path\To\your.msi
 
 ## Getting the source code and building the application
 
@@ -27,7 +27,7 @@ Bash) and change to the directory after the repository is completely cloned:
 That's it, you should now have the current source code of msi-info on your
 machine.
 
-After that, open Visual Studio (2017 Community Edition or later recommended)
+After that, open Visual Studio (2019 Community Edition or later recommended)
 and just build the solution **msi-info/msi-info.sln** from the checked out
 sources.
 
