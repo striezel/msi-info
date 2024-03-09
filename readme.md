@@ -16,6 +16,18 @@ Basic invocation via command line is as follows:
 
     msi-info.exe C:\User\ExAmple\Downloads\Path\To\your.msi
 
+Complete list of command line options:
+
+```
+msi-info.exe [options] MSI_PATH
+
+options:
+  -? | --help     - Shows this help message.
+  -v | --version  - Shows the version of the program.
+  MSI_PATH        - Path to the MSI file for which the information is to be
+                    displayed.
+```
+
 ## Getting the source code and building the application
 
 Get the source directly from GitHub by cloning the Git repository (e.g. in Git
@@ -33,7 +45,7 @@ sources.
 
 ## Copyright and Licensing
 
-Copyright 2022  Dirk Stolle
+Copyright 2022, 2024  Dirk Stolle
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

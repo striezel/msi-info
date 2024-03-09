@@ -1,6 +1,6 @@
 ﻿/*
     This file is part of msi-info.
-    Copyright (C) 2022  Dirk Stolle
+    Copyright (C) 2022, 2024  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,14 +23,52 @@ namespace msi_info
 {
     class Program
     {
+        /// <summary>
+        /// Shows the version of the program on standard output.
+        /// </summary>
+        static void ShowVersion()
+        {
+            var asm = System.Reflection.Assembly.GetExecutingAssembly();
+            var ver = asm.GetName().Version;
+            Console.WriteLine(asm.GetName().Name + ", version " + ver.ToString(3));
+        }
+
+        /// <summary>
+        /// Shows a basic help text on standard output.
+        /// </summary>
+        static void ShowHelp()
+        {
+            Console.WriteLine("msi-info.exe [options] MSI_PATH");
+            Console.WriteLine();
+            Console.WriteLine("options:");
+            Console.WriteLine("  -? | --help     - Shows this help message.");
+            Console.WriteLine("  -v | --version  - Shows the version of the program.");
+            Console.WriteLine("  MSI_PATH        - Path to the MSI file for which the information is to be");
+            Console.WriteLine("                    displayed.");
+        }
+
         static int Main(string[] args)
         {
-            Console.WriteLine("msi-info");
-
             if (args.Length == 0)
             {
-                Console.Error.WriteLine("Error: You have to specify the path to an MSI file as first parameter!");
+                Console.Error.WriteLine("Error: You have to specify a paramater"
+                    + " for the program to run properly, usually the path to an"
+                    + " MSI file!");
+                Console.Error.WriteLine();
+                ShowHelp();
                 return 1;
+            }
+
+            if ((args[0] == "--version") || (args[0] == "-v"))
+            {
+                ShowVersion();
+                return 0;
+            }
+
+            if ((args[0] == "--help") || (args[0] == "-?") || (args[0] == "/?"))
+            {
+                ShowHelp();
+                return 0;
             }
 
             string msiPath = args[0];
