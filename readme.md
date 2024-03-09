@@ -9,6 +9,12 @@
 [![GitHub CI](https://github.com/striezel/msi-info/workflows/MSBuild%20on%20Windows/badge.svg)](https://github.com/striezel/msi-info/actions)
 [![GitLab pipeline status](https://gitlab.com/striezel/msi-info/badges/master/pipeline.svg)](https://gitlab.com/striezel/msi-info/-/pipelines)
 
+## Prerequisites
+
+To run the `msi-info` program you need the .NET 6 runtime.
+The current .NET 6 runtime can be downloaded from
+<https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime>.
+
 ## Usage
 
 Basic invocation via command line is as follows:
