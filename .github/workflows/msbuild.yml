@@ -16,7 +16,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Code checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1
@@ -30,3 +33,24 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Create ZIP file
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: cmd
+      run: |
+        for /f %%i IN ('git describe --always') do set "VERSION=%%i"
+        echo Version is %VERSION%.
+        md msi-info-%VERSION%
+        copy msi-info\msi-info\bin\Release\net6.0\msi-info.exe msi-info-%VERSION%
+        copy msi-info\msi-info\bin\Release\net6.0\msi-info.dll msi-info-%VERSION%
+        copy msi-info\msi-info\bin\Release\net6.0\msi-info.runtimeconfig.json msi-info-%VERSION%
+        copy LICENSE msi-info-%VERSION%
+        copy readme.md msi-info-%VERSION%
+        "C:\Program Files\7-Zip\7z.exe" a -r msi-info_%VERSION%.zip msi-info-%VERSION%
+
+    - name: Upload ZIP file
+      uses: actions/upload-artifact@v4
+      with:
+        name: msi-info-zipped
+        if-no-files-found: error
+        path: msi-info*.zip
