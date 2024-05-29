@@ -1,6 +1,6 @@
 ﻿/*
     This file is part of msi-info.
-    Copyright (C) 2022  Dirk Stolle
+    Copyright (C) 2022, 2024  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -88,6 +88,17 @@ namespace msi_info
         public static string GetProductName(string msiPath)
         {
             return GetProperty(msiPath, "ProductName");
+        }
+
+        /// <summary>
+        /// Gets the product version of the MSI.
+        /// </summary>
+        /// <param name="msiPath">path to the MSI file</param>
+        /// <returns>Returns the product version in case of success.
+        /// Returns null, if an error occurred.</returns>
+        public static string GetProductVersion(string msiPath)
+        {
+            return GetProperty(msiPath, "ProductVersion");
         }
     }
 }

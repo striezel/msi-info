@@ -31,6 +31,12 @@ namespace msi_info
             var asm = System.Reflection.Assembly.GetExecutingAssembly();
             var ver = asm.GetName().Version;
             Console.WriteLine(asm.GetName().Name + ", version " + ver.ToString(3));
+            Console.WriteLine();
+            Console.WriteLine("Copyright (C) 2022 - 2024  Dirk Stolle");
+            Console.WriteLine("License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>");
+            Console.WriteLine("This is free software: you are free to change and redistribute it under the");
+            Console.WriteLine("terms of the GNU General Public License version 3 or any later version.");
+            Console.WriteLine("There is NO WARRANTY, to the extent permitted by law.");
         }
 
         /// <summary>
@@ -90,9 +96,15 @@ namespace msi_info
                 Console.Error.WriteLine("Error: Could not get MSI product code from file!");
                 return 3;
             }
+            string version = MsiUtils.GetProductVersion(msiPath);
+            if (string.IsNullOrEmpty(version))
+            {
+                Console.WriteLine("Warning: Could not get MSI product version from file!");
+            }
 
-            Console.WriteLine("Product name: " + name);
-            Console.WriteLine("Product code: " + code);
+            Console.WriteLine("Product name:    " + name);
+            Console.WriteLine("Product code:    " + code);
+            Console.WriteLine("Product version: " + (version ?? "unknown"));
             return 0;
         }
     }

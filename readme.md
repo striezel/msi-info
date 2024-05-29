@@ -1,7 +1,7 @@
 # msi-info
 
-`msi-info` is a command line application that can display the `ProductName` and
-`ProductCode` properties of any given MSI package.
+`msi-info` is a command line application that can display the `ProductName`,
+`ProductCode` and `ProductVersion` properties of any given MSI package.
 
 ## Build status
 
