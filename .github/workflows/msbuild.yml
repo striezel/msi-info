@@ -46,6 +46,7 @@ jobs:
         copy msi-info\msi-info\bin\Release\net6.0\msi-info.runtimeconfig.json msi-info-%VERSION%
         copy LICENSE msi-info-%VERSION%
         copy readme.md msi-info-%VERSION%
+        copy changelog.md msi-info-%VERSION%
         "C:\Program Files\7-Zip\7z.exe" a -r msi-info_%VERSION%.zip msi-info-%VERSION%
 
     - name: Upload ZIP file
