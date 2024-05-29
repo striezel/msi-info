@@ -7,15 +7,6 @@ dotnet_6:
   script:
     - dotnet build msi-info/msi-info.sln
 
-dotnet_7:
-  # Use .NET SDK from Microsoft Container Registry.
-  image: mcr.microsoft.com/dotnet/sdk:7.0
-  stage: build
-  before_script:
-    - dotnet --info
-  script:
-    - dotnet build msi-info/msi-info.sln
-
 dotnet_8:
   # Use .NET SDK from Microsoft Container Registry.
   image: mcr.microsoft.com/dotnet/sdk:8.0
