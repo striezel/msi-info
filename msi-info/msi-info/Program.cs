@@ -18,6 +18,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace msi_info
 {
@@ -30,9 +31,8 @@ namespace msi_info
         {
             var asm = System.Reflection.Assembly.GetExecutingAssembly();
             var ver = asm.GetName().Version;
-            Console.WriteLine(asm.GetName().Name + ", version " + ver.ToString(3));
-            Console.WriteLine();
-            Console.WriteLine(".NET runtime: " + System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription);
+            Console.WriteLine(asm.GetName().Name + ", version " + ver.ToString(3)
+                + ", running on " + RuntimeInformation.FrameworkDescription);
             Console.WriteLine();
             Console.WriteLine("Copyright (C) 2022 - 2024  Dirk Stolle");
             Console.WriteLine("License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>");
