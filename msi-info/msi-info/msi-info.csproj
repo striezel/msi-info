@@ -7,8 +7,8 @@
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <Description>Command line application that can display the ProductName, ProductCode and ProductVersion properties of any given MSI package.</Description>
     <Copyright>Copyright © 2022, 2023, 2024 Dirk Stolle</Copyright>
-    <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0</FileVersion>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <FileVersion>2.0.0-rc1</FileVersion>
     <PackageProjectUrl>https://github.com/striezel/msi-info</PackageProjectUrl>
   </PropertyGroup>
 
