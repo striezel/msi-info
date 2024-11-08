@@ -41,9 +41,9 @@ jobs:
         for /f %%i IN ('git describe --always') do set "VERSION=%%i"
         echo Version is %VERSION%.
         md msi-info-%VERSION%
-        copy msi-info\msi-info\bin\Release\net6.0\msi-info.exe msi-info-%VERSION%
-        copy msi-info\msi-info\bin\Release\net6.0\msi-info.dll msi-info-%VERSION%
-        copy msi-info\msi-info\bin\Release\net6.0\msi-info.runtimeconfig.json msi-info-%VERSION%
+        copy msi-info\msi-info\bin\Release\net8.0\msi-info.exe msi-info-%VERSION%
+        copy msi-info\msi-info\bin\Release\net8.0\msi-info.dll msi-info-%VERSION%
+        copy msi-info\msi-info\bin\Release\net8.0\msi-info.runtimeconfig.json msi-info-%VERSION%
         copy LICENSE msi-info-%VERSION%
         copy readme.md msi-info-%VERSION%
         copy changelog.md msi-info-%VERSION%

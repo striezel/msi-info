@@ -11,9 +11,9 @@
 
 ## Prerequisites
 
-To run the `msi-info` program you need the .NET 6 runtime.
-The current .NET 6 runtime can be downloaded from
-<https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime>.
+To run the `msi-info` program you need the .NET 8 runtime.
+The current .NET 8 runtime can be downloaded from
+<https://dotnet.microsoft.com/en-us/download/dotnet/8.0/runtime>.
 
 ## Usage
 

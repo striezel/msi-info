@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>msi_info</RootNamespace>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <Description>Command line application that can display the ProductName, ProductCode and ProductVersion properties of any given MSI package.</Description>
