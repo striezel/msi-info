@@ -1,6 +1,6 @@
 ﻿/*
     This file is part of msi-info.
-    Copyright (C) 2022, 2024  Dirk Stolle
+    Copyright (C) 2022, 2024, 2025  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ namespace msi_info
             Console.WriteLine(asm.GetName().Name + ", version " + ver.ToString(3)
                 + ", running on " + RuntimeInformation.FrameworkDescription);
             Console.WriteLine();
-            Console.WriteLine("Copyright (C) 2022 - 2024  Dirk Stolle");
+            Console.WriteLine("Copyright (C) 2022 - 2025  Dirk Stolle");
             Console.WriteLine("License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>");
             Console.WriteLine("This is free software: you are free to change and redistribute it under the");
             Console.WriteLine("terms of the GNU General Public License version 3 or any later version.");
@@ -86,27 +86,41 @@ namespace msi_info
                 return 2;
             }
 
-            var name = MsiUtils.GetProductName(msiPath);
-            if (string.IsNullOrEmpty(name))
+            var properties = MsiUtils.GetProperties(msiPath);
+            if (properties == null)
+            {
+                Console.Error.WriteLine("Error: Could not get MSI properties from file!");
+                return 3;
+            }
+            if (string.IsNullOrEmpty(properties.name))
             {
                 Console.Error.WriteLine("Error: Could not get MSI property from file!");
                 return 3;
             }
-            var code = MsiUtils.GetProductCode(msiPath);
-            if (string.IsNullOrEmpty(code))
+            if (string.IsNullOrEmpty(properties.code))
             {
                 Console.Error.WriteLine("Error: Could not get MSI product code from file!");
                 return 3;
             }
-            string version = MsiUtils.GetProductVersion(msiPath);
-            if (string.IsNullOrEmpty(version))
+            if (string.IsNullOrEmpty(properties.version))
             {
                 Console.WriteLine("Warning: Could not get MSI product version from file!");
             }
+            if (string.IsNullOrEmpty(properties.language))
+            {
+                Console.WriteLine("Warning: Could not get MSI language from file!");
+            }
+            if (string.IsNullOrEmpty(properties.manufacturer))
+            {
+                Console.WriteLine("Warning: Could not get MSI manufacturer from file!");
+            }
 
-            Console.WriteLine("Product name:    " + name);
-            Console.WriteLine("Product code:    " + code);
-            Console.WriteLine("Product version: " + (version ?? "unknown"));
+            Console.WriteLine("Product name:     " + properties.name);
+            Console.WriteLine("Product code:     " + properties.code);
+            Console.WriteLine("Product version:  " + (properties.version ?? "unknown"));
+            Console.WriteLine("Product language: " + (properties.language ?? "unknown"));
+            Console.WriteLine("Manufacturer:     " + (properties.manufacturer ?? "unknown"));
+            
             return 0;
         }
     }

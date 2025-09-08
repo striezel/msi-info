@@ -4,6 +4,15 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 2.1.0
+
+__[new features]__
+
+* The program will now show the values of the `ProductLanguage` and
+  `Manufacturer` properties, too.
+* Overhead for retrieval of information has been reduced, so the application is
+  now slightly faster.
+
 ## Version 2.0.0
 
 __[breaking change]__

@@ -23,6 +23,48 @@ using System.Text;
 namespace msi_info
 {
     /// <summary>
+    /// Holds values of MSI properties.
+    /// </summary>
+    internal class MsiProperties
+    {
+        /// <summary>
+        /// value of ProductName property, usually the name of the software to install
+        /// </summary>
+        public string name;
+
+        /// <summary>
+        /// Contains value of ProductCode property, i.e. a GUID in the form
+        /// of {12345678-9ABC-DEF0-1234-56789ABCDEF0}.
+        /// </summary>
+        public string code;
+
+        /// <summary>
+        /// value of ProductVersion property
+        /// </summary>
+        public string version;
+
+        /// <summary>
+        /// value of ProductLanguage property, a numerical language ID
+        /// </summary>
+        public string language;
+
+        /// <summary>
+        /// value of the Manufacturer property
+        /// </summary>
+        public string manufacturer;
+
+        public MsiProperties()
+        {
+            name = null;
+            code = null;
+            version = null;
+            language = null;
+            manufacturer = null;
+        }
+    }
+
+
+    /// <summary>
     /// Utility class that wraps calls to msi.dll functions to get MSI property data.
     /// </summary>
     internal static class MsiUtils
@@ -36,14 +78,18 @@ namespace msi_info
         [DllImport("msi.dll", CharSet = CharSet.Unicode, PreserveSig = true, SetLastError = true, ExactSpelling = true)]
         private static extern uint MsiGetPropertyW(IntPtr hAny, string name, StringBuilder buffer, ref int bufferLength);
 
+        const uint ERROR_MORE_DATA = 234;
+
+
         /// <summary>
-        /// Gets a property from an MSI file.
+        /// Gets some properties from an MSI file.
         /// </summary>
         /// <param name="msiPath">path to the MSI file</param>
-        /// <param name="property">name of the property (case-sensitive)</param>
-        /// <returns>Returns the value of the property in case of success.
+        /// <returns>Returns the values of the property in case of success.
         /// Returns null, if an error occurred.</returns>
-        private static string GetProperty(string msiPath, string property)
+        /// <remarks>Note that some of the individual properties could be null,
+        /// even if the function itself was successful.</remarks>
+        public static MsiProperties GetProperties(string msiPath)
         {
             IntPtr MsiHandle = IntPtr.Zero;
             try
@@ -53,10 +99,14 @@ namespace msi_info
                 {
                     return null;
                 }
-                int length = 512;
-                var buffer = new StringBuilder(length);
-                res = MsiGetPropertyW(MsiHandle, property, buffer, ref length);
-                return buffer.ToString();
+                return new MsiProperties()
+                {
+                    name = GetProperty(MsiHandle, "ProductName"),
+                    code = GetProperty(MsiHandle, "ProductCode"),
+                    version = GetProperty(MsiHandle, "ProductVersion"),
+                    language = GetProperty(MsiHandle, "ProductLanguage"),
+                    manufacturer = GetProperty(MsiHandle, "Manufacturer")
+                };
             }
             finally
             {
@@ -68,37 +118,24 @@ namespace msi_info
         }
 
         /// <summary>
-        /// Gets the product code of the MSI.
-        /// The product code is an GUID in the form of {12345678-9ABC-DEF0-1234-56789ABCDEF0}.
+        /// Gets a property value from an MSI file.
         /// </summary>
-        /// <param name="msiPath">path to the MSI file</param>
-        /// <returns>Returns the product code in case of success.
+        /// <param name="msiHandle">handle to an open MSI file, opened with the
+        /// MsiOpenPackageW() function</param>
+        /// <param name="property">name of the property (case-sensitive)</param>
+        /// <returns>Returns the value of the property in case of success.
         /// Returns null, if an error occurred.</returns>
-        public static string GetProductCode(string msiPath)
+        private static string GetProperty(IntPtr msiHandle, string property)
         {
-            return GetProperty(msiPath, "ProductCode");
-        }
-
-        /// <summary>
-        /// Gets the product name of the MSI.
-        /// </summary>
-        /// <param name="msiPath">path to the MSI file</param>
-        /// <returns>Returns the product name in case of success.
-        /// Returns null, if an error occurred.</returns>
-        public static string GetProductName(string msiPath)
-        {
-            return GetProperty(msiPath, "ProductName");
-        }
-
-        /// <summary>
-        /// Gets the product version of the MSI.
-        /// </summary>
-        /// <param name="msiPath">path to the MSI file</param>
-        /// <returns>Returns the product version in case of success.
-        /// Returns null, if an error occurred.</returns>
-        public static string GetProductVersion(string msiPath)
-        {
-            return GetProperty(msiPath, "ProductVersion");
+            int length = 512;
+            var buffer = new StringBuilder(length);
+            var res = MsiGetPropertyW(msiHandle, property, buffer, ref length);
+            if (res == ERROR_MORE_DATA)
+            {
+                buffer = new StringBuilder(length);
+                res = MsiGetPropertyW(msiHandle, property, buffer, ref length);
+            }
+            return res == 0 ? buffer.ToString() : null;
         }
     }
 }
