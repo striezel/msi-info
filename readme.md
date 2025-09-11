@@ -44,13 +44,13 @@ Bash) and change to the directory after the repository is completely cloned:
 That's it, you should now have the current source code of msi-info on your
 machine.
 
-After that, open Visual Studio (2019 Community Edition or later recommended)
+After that, open Visual Studio (2022 Community Edition or later recommended)
 and just build the solution **msi-info/msi-info.sln** from the checked out
 sources.
 
 ## Copyright and Licensing
 
-Copyright 2022, 2024  Dirk Stolle
+Copyright 2022, 2024, 2025  Dirk Stolle
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
