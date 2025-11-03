@@ -51,7 +51,7 @@ jobs:
         "C:\Program Files\7-Zip\7z.exe" a -r msi-info_%VERSION%.zip msi-info-%VERSION%
 
     - name: Upload ZIP file
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: msi-info-zipped
         if-no-files-found: error
